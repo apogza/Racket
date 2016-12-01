@@ -30,7 +30,7 @@
      (append (permute (car myl) orig) (traverse-permute (cdr myl) orig)))))
 
 ;;flatten a list of lists
-(define ( flattenx llist)
+(define (flattenx llist)
   (cond
     ((empty? llist) empty)
     (else
