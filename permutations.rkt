@@ -36,21 +36,12 @@
     (else
      (append (car llist) (flattenx (cdr llist))))))
 
-;;compute the subsets of a list of n symbols in a subset
-(define (subsets myl n)
-  (cond
-    ((< (length myl) n) empty)
-    ((= (length myl) n) (list myl))
-    (else
-     (append (subset (list (car myl)) (cdr myl) n) (subsets (cdr myl) n)))))
-
-
-(define (subset curl restl n)
+(define (combination curl restl n)
   (cond
     ((= (length curl) n) (list curl))
     ((= (+ (length curl) (length restl)) n) (list (append curl restl)))
     (else
-     (append (subset (append curl (list (car restl))) (cdr restl) n) (subset curl (cdr restl) n)))))
+     (append (combination (append curl (list (car restl))) (cdr restl) n) (combination curl (cdr restl) n)))))
 
 ;;the main function that calculates all permutation of a list
 (define (permutations myl)
@@ -58,4 +49,12 @@
 
 ;;calculate permutations of n symbols of a list
 (define (n-permutations myl n)
-  (flattenx (map permutations (subsets myl n))))
+  (flattenx (map permutations (n-combinations myl n))))
+
+;;compute all possible combinations of a list of n symbols
+(define (n-combinations myl n)
+  (cond
+    ((< (length myl) n) empty)
+    ((= (length myl) n) (list myl))
+    (else
+     (append (combination (list (car myl)) (cdr myl) n) (n-combinations (cdr myl) n)))))
