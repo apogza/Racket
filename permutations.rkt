@@ -47,10 +47,6 @@
 (define (permutations myl)
   (traverse-permute myl myl))
 
-;;calculate permutations of n symbols of a list
-(define (n-permutations myl n)
-  (flattenx (map permutations (n-combinations myl n))))
-
 ;;compute all possible combinations of a list of n symbols
 (define (n-combinations myl n)
   (cond
@@ -58,3 +54,8 @@
     ((= (length myl) n) (list myl))
     (else
      (append (combination (list (car myl)) (cdr myl) n) (n-combinations (cdr myl) n)))))
+
+;;calculate permutations of n symbols of a list
+(define (n-permutations myl n)
+  (flattenx (map permutations (n-combinations myl n))))
+
